@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MAGI SEARCH</title>
+<style>
+:root{--o:#ff6a1a;--t:#7fffd4;--r:#ff2a1a}
+*{box-sizing:border-box}[hidden]{display:none!important}
+body{margin:0 auto;background:#000;color:var(--o);font-family:Impact,'Arial Narrow',sans-serif;letter-spacing:.5px;padding:20px;max-width:1100px}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.25) 0 1px,transparent 1px 3px);z-index:9}
+#boot{position:fixed;inset:0;background:#000;z-index:10;padding:30px;font-size:22px;color:var(--t);transition:opacity .6s;cursor:pointer}
+#boot.off{opacity:0}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.panel{border:3px solid var(--o);border-radius:10px;padding:8px 14px;box-shadow:0 0 10px var(--o),inset 0 0 8px var(--o);margin-bottom:14px;text-transform:uppercase}
+.panel small{display:block;font-size:13px}.panel b{font-size:26px}
+.panel.red{border-color:var(--r);color:var(--r);box-shadow:0 0 10px var(--r),inset 0 0 8px var(--r)}
+img{width:90px;height:90px;object-fit:contain}
+nav{display:flex;gap:10px;margin-bottom:16px}
+nav a{border:3px solid var(--o);color:var(--o);padding:4px 16px;text-decoration:none;font-size:20px}
+nav a.on{background:var(--o);color:#000}
+.grid{display:grid;grid-template-columns:1fr 210px;gap:20px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}}
+form{display:flex;gap:8px;margin-bottom:10px}
+input[type=text]{flex:1;background:#000;border:3px solid var(--t);color:var(--t);font:22px Impact,sans-serif;padding:10px;box-shadow:0 0 10px var(--t);outline:0;min-width:0}
+button{background:#000;border:3px solid var(--o);color:var(--o);font:20px Impact,sans-serif;padding:6px 18px;cursor:pointer;box-shadow:0 0 10px var(--o)}
+button:hover{background:var(--o);color:#000}
+#tabs{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}#tabs button{font-size:16px;padding:4px 12px}#tabs .on{background:var(--o);color:#000}
+.sub{margin-left:24px;font-size:20px;padding:8px 18px}
+.barw{border:2px solid var(--o);height:10px;margin-bottom:16px}#bar{height:100%;width:0;background:var(--o);transition:width .2s}
+.magi{display:grid;grid-template-columns:1fr 1fr;gap:12px;position:relative;margin:0 0 18px}
+.node{border:4px solid var(--t);color:var(--t);box-shadow:0 0 12px var(--t),inset 0 0 8px var(--t);text-align:center;padding:14px 6px 8px;font-size:24px}
+.node:first-child{grid-column:1/3;width:50%;justify-self:center}
+.node .stamp{display:inline-block;margin:6px 0 10px}
+.hex{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:90px;height:56px;background:var(--t);color:#000;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);display:flex;align-items:center;justify-content:center;font:bold 22px serif}
+.card{display:flex;justify-content:space-between;align-items:center;border:4px solid var(--t);color:var(--t);padding:12px 18px;margin-bottom:10px;box-shadow:0 0 12px var(--t),inset 0 0 8px var(--t);font-size:24px}
+.card a{color:inherit;text-decoration:none}.card small{font-size:13px;opacity:.7}
+.stamp{border:3px solid var(--t);padding:2px 12px;font-size:26px;font-family:serif}
+.none{border-color:var(--r);color:var(--r);box-shadow:0 0 12px var(--r),inset 0 0 8px var(--r)}.card .none{box-shadow:none}
+.fail{border-color:var(--o);color:var(--o)}
+input[type=checkbox]{accent-color:var(--t);width:24px;height:24px}
+.row{display:flex;justify-content:space-between;font-size:15px}
+.code{font:13px Arial,sans-serif;font-weight:bold;margin-bottom:14px;line-height:1.5}
+</style></head><body>
+<div id="boot"></div>
+<header class="top">
+ <div>
+  <div class="panel"><small>Direct link connection: MAGI 01</small><small>Access mode: <b>SUPERUSER</b></small></div>
+  <div class="panel red"><small>Result of the deliberation</small><b id="st">MOTION: STANDBY</b></div>
+ </div>
+ <img src="logo.png" alt="NERV">
+</header>
+<nav><a href="#search">SEARCH</a><a href="#history">HISTORY</a><a href="#settings">SETTINGS</a></nav>
+<div class="grid">
+<main>
+ <section id="search">
+  <div id="tabs"><button data-m="username">USERNAME</button><button data-m="email">EMAIL</button><button data-m="phone">PHONE</button><button data-m="name">NAME</button></div>
+  <form id="f"><input type="text" id="q" autocomplete="off"><input type="text" id="fn" placeholder="NAME" autocomplete="off" hidden><input type="text" id="ln" placeholder="SURNAME" autocomplete="off" hidden><button>RUN</button></form>
+  <div class="barw"><div id="bar"></div></div>
+  <div class="magi">
+   <div class="node">BALTHASAR·2<br><span class="stamp" id="n0">…</span></div>
+   <div class="node">CASPER·3<br><span class="stamp" id="n1">…</span></div>
+   <div class="node">MELCHIOR·1<br><span class="stamp" id="n2">…</span></div>
+   <div class="hex">MAGI</div>
+  </div>
+  <div id="out"></div>
+  <div id="exp" hidden><button id="ej">EXPORT JSON</button> <button id="ec">EXPORT CSV</button></div>
+ </section>
+ <section id="history" hidden><button id="clr" style="margin-bottom:12px">CLEAR</button><div id="hl"></div></section>
+ <section id="settings" hidden><div class="panel"><small>Select sites to search</small></div><div id="sites"></div></section>
+</main>
+<aside>
+ <div class="panel"><small>System status</small>
+  <div class="row">SITES <b id="s1">-</b></div><div class="row">QUERIES <b id="s2">-</b></div>
+  <div class="row">LAST HITS <b id="s3">-</b></div><div class="row">AVG LATENCY <b id="s4">-</b></div></div>
+ <div class="code">CODE : 258<br>FILE :<br>MAGI.SYS<br>EXTENTION :<br>4096<br>EX_MODE :<br>OFF<br>PRIORITY :<br>AAA</div>
+ <div class="code">Layer 3:<br>ConnectionControl<br>Q:331<br>Layer 2:<br>DebLink:<br>Q:321-LAPD<br>Layer 1:<br>Physical Connection<br>L431-Basic Interface</div>
+</aside>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const get=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}};
+const set=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const S={found:['承認',''],none:['否定','none'],fail:['ERR','fail']};
+const detect=q=>q.includes('@')?'email':/^\+?\d{7,15}$/.test(q)?'phone':'username';
+let SITES=[],res=[],lat=[],mode='username';
+
+// boot
+const L=['MAGI SYSTEM BOOT...','CASPER·3 ... ONLINE','BALTHASAR·2 ... ONLINE','MELCHIOR·1 ... ONLINE','ACCESS: SUPERUSER'];
+let bi=0;const b=$('boot');
+const bt=setInterval(()=>{if(bi<L.length)b.innerHTML+=L[bi++]+'<br>';else{clearInterval(bt);b.classList.add('off');setTimeout(()=>b.remove(),600)}},300);
+b.onclick=()=>{clearInterval(bt);b.remove()};
+
+// routing
+const route=()=>{const h=location.hash.slice(1);const p=['search','history','settings'].includes(h)?h:'search';
+ document.querySelectorAll('section').forEach(s=>s.hidden=s.id!==p);
+ document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.hash==='#'+p));
+ if(p==='history')drawHist()};
+addEventListener('hashchange',route);
+
+// sites
+const enabled=()=>{const off=get('off',[]);return SITES.filter(s=>!off.includes(s.name)).map(s=>s.name)};
+function drawSettings(){const off=get('off',[]),gs=[...new Set(SITES.map(s=>s.group))];
+ $('sites').innerHTML=gs.map(g=>`<div class="card"><b>${esc(g)}</b><input type="checkbox" data-g="${esc(g)}"></div>`+SITES.filter(s=>s.group===g).map(s=>`<label class="card sub"><span>${esc(s.name)}</span><input type="checkbox" data-s="${esc(s.name)}" ${off.includes(s.name)?'':'checked'}></label>`).join('')).join('');
+ syncG()}
+const grp=x=>SITES.find(s=>s.name===x.dataset.s).group;
+function syncG(){document.querySelectorAll('[data-g]').forEach(g=>{const c=[...document.querySelectorAll('[data-s]')].filter(x=>grp(x)===g.dataset.g),n=c.filter(x=>x.checked).length;g.checked=n===c.length;g.indeterminate=n>0&&n<c.length})}
+$('sites').onchange=e=>{const t=e.target;
+ if(t.dataset.g)document.querySelectorAll('[data-s]').forEach(x=>{if(grp(x)===t.dataset.g)x.checked=t.checked});
+ set('off',[...document.querySelectorAll('[data-s]')].filter(x=>!x.checked).map(x=>x.dataset.s));syncG();stats()};
+fetch('/api/check?list=1').then(r=>r.json()).then(l=>{SITES=l;drawSettings();stats()}).catch(()=>{});
+
+// ui helpers
+function stats(){const h=get('hist',[]);
+ $('s1').textContent=enabled().length+'/'+SITES.length;$('s2').textContent=h.length;
+ $('s3').textContent=h[0]?h[0].f:'-';
+ $('s4').textContent=lat.length?Math.round(lat.reduce((a,c)=>a+c)/lat.length)+'ms':'-'}
+function nodes(total=0){[0,1,2].forEach(k=>{
+ const e=Math.max(0,Math.ceil((total-k)/3)),sub=res.filter(r=>r.i%3===k);
+ const v=!total?'…':!e?'—':sub.some(r=>r.status==='found')?'承認':sub.length>=e?'否定':'…';
+ const el=$('n'+k);el.textContent=v;el.className='stamp'+(v==='否定'?' none':'')})}
+function card(r){const[s,c]=S[r.status];
+ $('out').insertAdjacentHTML('beforeend',`<div class="card"><a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.name)} <small>${r.ms}ms</small></a><span class="stamp ${c}">${s}</span></div>`)}
+function drawHist(){const h=get('hist',[]);
+ $('hl').innerHTML=h.length?h.map((x,i)=>`<div class="card" data-i="${i}" style="cursor:pointer"><span>${esc(x.q)} <small>${x.t} · ${x.type}</small></span><span class="stamp ${x.f?'':'none'}">${x.f}</span></div>`).join(''):'<p>NO RECORDS</p>'}
+$('hl').onclick=e=>{const c=e.target.closest('[data-i]');if(c){const x=get('hist',[])[c.dataset.i];run(x.q,x.type)}};
+$('clr').onclick=()=>{set('hist',[]);drawHist();stats()};
+
+// search
+function setMode(m){mode=m;document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.m===m));
+ const n=m==='name',p=m==='phone';
+ $('q').hidden=n||p;$('fn').hidden=$('ln').hidden=!n;$('f').hidden=p;
+ $('q').placeholder=m==='email'?'EMAIL':'USERNAME';
+ $('st').textContent=p?'PHONE: DISABLED (PAID API REQUIRED)':'MOTION: STANDBY'}
+const clean=s=>s.toLowerCase().replace(/[^a-z0-9]/g,'');
+const variants=(f,l)=>{f=clean(f);l=clean(l);return f&&l?[...new Set([f+l,f+'.'+l,f+'_'+l,f[0]+l,l+f])]:[]};
+async function run(q,m=mode){
+ q=q.trim();if(!q||m==='phone')return;
+ const parts=q.split(/\s+/);
+ if(m==='name'&&parts.length<2)return;
+ location.hash='search';setMode(m);
+ if(m==='name'){$('fn').value=parts[0];$('ln').value=parts[parts.length-1]}else $('q').value=q;
+ res=[];lat=[];$('out').innerHTML='';$('exp').hidden=true;$('bar').style.width='0';nodes();
+ if((m==='email')!==q.includes('@')){$('st').textContent=m==='email'?'INVALID EMAIL':'USERNAME CANNOT CONTAIN @';return}
+ const qs=m==='name'?variants(parts[0],parts[parts.length-1]):[q];
+ const sites=m==='email'?['GRAVATAR']:enabled();
+ const tasks=qs.flatMap(v=>sites.map(s=>({v,s})));
+ if(!tasks.length){$('st').textContent=qs.length?'NO SITES ENABLED':'LATIN LETTERS ONLY';return}
+ $('st').textContent='MOTION: DELIBERATING';let n=0;
+ await Promise.all(tasks.map(async({v,s},i)=>{
+  let r;try{r=await(await fetch(`/api/check?q=${encodeURIComponent(v)}&site=${encodeURIComponent(s)}`)).json();if(r.error)throw 0}
+  catch{r={name:s,url:'',status:'fail',ms:0}}
+  r.q=v;r.i=i;if(m==='name')r.name+=' · '+v;
+  res.push(r);lat.push(r.ms);$('bar').style.width=++n/tasks.length*100+'%';card(r);nodes(tasks.length)}));
+ const f=res.filter(r=>r.status==='found').length;
+ $('st').textContent='MOTION: '+(f?`FOUND (${f})`:'NOT FOUND')+(m==='name'?' · UNVERIFIED':'');$('exp').hidden=false;
+ const h=get('hist',[]).filter(x=>x.q!==q);
+ h.unshift({q,type:m,f,t:new Date().toISOString().slice(0,16).replace('T',' ')});set('hist',h.slice(0,50));stats();
+}
+$('tabs').onclick=e=>{if(e.target.dataset.m)setMode(e.target.dataset.m)};
+$('f').onsubmit=e=>{e.preventDefault();run(mode==='name'?$('fn').value+' '+$('ln').value:$('q').value)};
+
+// export
+function dl(name,txt,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type}));a.download=name;a.click()}
+$('ej').onclick=()=>dl('magi.json',JSON.stringify({query:$('q').value,results:res},null,1),'application/json');
+$('ec').onclick=()=>dl('magi.csv','query,site,url,status,ms\n'+res.map(r=>[r.q,r.name,r.url,r.status,r.ms].join(',')).join('\n'),'text/csv');
+
+route();stats();nodes();setMode('username');
+</script></body></html>
