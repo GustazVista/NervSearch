@@ -6,37 +6,57 @@
 :root{--o:#ff6a1a;--t:#7fffd4;--r:#ff2a1a}
 *{box-sizing:border-box}[hidden]{display:none!important}
 body{margin:0 auto;background:#000;color:var(--o);font-family:Impact,'Arial Narrow',sans-serif;letter-spacing:.5px;padding:20px;max-width:1100px}
+body::before{content:"";position:fixed;inset:0;z-index:-1;opacity:.13;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cpath fill='%23ff6a1a' d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/svg%3E");animation:drift 12s linear infinite}
+@keyframes drift{to{background-position:28px 49px}}
 body::after{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.25) 0 1px,transparent 1px 3px);z-index:9}
 #boot{position:fixed;inset:0;background:#000;z-index:10;padding:30px;font-size:22px;color:var(--t);transition:opacity .6s;cursor:pointer}
 #boot.off{opacity:0}
 .top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-.panel{border:3px solid var(--o);border-radius:10px;padding:8px 14px;box-shadow:0 0 10px var(--o),inset 0 0 8px var(--o);margin-bottom:14px;text-transform:uppercase}
+.panel{border:3px solid var(--o);border-radius:10px;padding:8px 14px;box-shadow:0 0 10px var(--o),inset 0 0 8px var(--o);margin-bottom:14px;text-transform:uppercase;background:#000}
 .panel small{display:block;font-size:13px}.panel b{font-size:26px}
 .panel.red{border-color:var(--r);color:var(--r);box-shadow:0 0 10px var(--r),inset 0 0 8px var(--r)}
+#st{display:inline-block}
+.gl{animation:gl .5s steps(2,end)}
+@keyframes gl{0%{text-shadow:3px 0 var(--t),-3px 0 #f0f;transform:translateX(-2px)}50%{text-shadow:-3px 0 var(--t),3px 0 #f0f;transform:translateX(2px)}100%{text-shadow:none;transform:none}}
 img{width:90px;height:90px;object-fit:contain}
 nav{display:flex;gap:10px;margin-bottom:16px}
-nav a{border:3px solid var(--o);color:var(--o);padding:4px 16px;text-decoration:none;font-size:20px}
+nav a{border:3px solid var(--o);color:var(--o);padding:4px 16px;text-decoration:none;font-size:20px;background:#000}
 nav a.on{background:var(--o);color:#000}
+#warn{background:repeating-linear-gradient(45deg,#000 0 12px,var(--r) 12px 24px);border:3px solid var(--r);text-align:center;margin-bottom:12px;animation:blink .6s steps(2) infinite}
+#warn span{background:#000;color:var(--r);padding:2px 16px;font-size:20px;display:inline-block;margin:4px}
+@keyframes blink{50%{opacity:.35}}
 .grid{display:grid;grid-template-columns:1fr 210px;gap:20px}
 @media(max-width:760px){.grid{grid-template-columns:1fr}}
+#tabs{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}#tabs button{font-size:16px;padding:4px 12px}#tabs .on{background:var(--o);color:#000}
 form{display:flex;gap:8px;margin-bottom:10px}
-input[type=text]{flex:1;background:#000;border:3px solid var(--t);color:var(--t);font:22px Impact,sans-serif;padding:10px;box-shadow:0 0 10px var(--t);outline:0;min-width:0}
+input[type=text],select{flex:1;background:#000;border:3px solid var(--t);color:var(--t);font:20px Impact,sans-serif;padding:8px;box-shadow:0 0 10px var(--t);outline:0;min-width:0}
 button{background:#000;border:3px solid var(--o);color:var(--o);font:20px Impact,sans-serif;padding:6px 18px;cursor:pointer;box-shadow:0 0 10px var(--o)}
 button:hover{background:var(--o);color:#000}
-#tabs{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}#tabs button{font-size:16px;padding:4px 12px}#tabs .on{background:var(--o);color:#000}
-.sub{margin-left:24px;font-size:20px;padding:8px 18px}
 .barw{border:2px solid var(--o);height:10px;margin-bottom:16px}#bar{height:100%;width:0;background:var(--o);transition:width .2s}
 .magi{display:grid;grid-template-columns:1fr 1fr;gap:12px;position:relative;margin:0 0 18px}
-.node{border:4px solid var(--t);color:var(--t);box-shadow:0 0 12px var(--t),inset 0 0 8px var(--t);text-align:center;padding:14px 6px 8px;font-size:24px}
+.node{border:4px solid var(--t);color:var(--t);box-shadow:0 0 12px var(--t),inset 0 0 8px var(--t);text-align:center;padding:14px 6px 8px;font-size:24px;background:#000}
 .node:first-child{grid-column:1/3;width:50%;justify-self:center}
 .node .stamp{display:inline-block;margin:6px 0 10px}
+.node.wait{animation:pulse 1s infinite alternate}
+@keyframes pulse{to{box-shadow:0 0 28px var(--t),inset 0 0 16px var(--t)}}
 .hex{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:90px;height:56px;background:var(--t);color:#000;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);display:flex;align-items:center;justify-content:center;font:bold 22px serif}
-.card{display:flex;justify-content:space-between;align-items:center;border:4px solid var(--t);color:var(--t);padding:12px 18px;margin-bottom:10px;box-shadow:0 0 12px var(--t),inset 0 0 8px var(--t);font-size:24px}
+.card{display:flex;justify-content:space-between;align-items:center;gap:8px;border:4px solid var(--t);color:var(--t);padding:12px 18px;margin-bottom:10px;box-shadow:0 0 12px var(--t),inset 0 0 8px var(--t);font-size:24px;background:#000}
 .card a{color:inherit;text-decoration:none}.card small{font-size:13px;opacity:.7}
+.card button{font-size:13px;padding:2px 8px;box-shadow:none;margin-left:3px;color:var(--t);border-color:var(--t)}
+.card button:hover{background:var(--t);color:#000}
 .stamp{border:3px solid var(--t);padding:2px 12px;font-size:26px;font-family:serif}
+.slam{animation:slam .35s ease-out both}
+@keyframes slam{0%{transform:scale(3);opacity:0}70%{transform:scale(.9);opacity:1}100%{transform:scale(1)}}
 .none{border-color:var(--r);color:var(--r);box-shadow:0 0 12px var(--r),inset 0 0 8px var(--r)}.card .none{box-shadow:none}
 .fail{border-color:var(--o);color:var(--o)}
-input[type=checkbox]{accent-color:var(--t);width:24px;height:24px}
+.at{position:fixed;width:120px;height:120px;margin:-60px 0 0 -60px;pointer-events:none;z-index:8;animation:at .9s ease-out forwards}
+.at svg{width:100%;height:100%;fill:rgba(255,106,26,.12);stroke:var(--o);stroke-width:2;filter:drop-shadow(0 0 6px var(--o))}
+@keyframes at{from{transform:scale(.3);opacity:1}to{transform:scale(12);opacity:0}}
+input[type=checkbox]{accent-color:var(--t);width:20px;height:20px;vertical-align:middle}
+.grp{border-color:var(--o);color:var(--o);box-shadow:0 0 12px var(--o),inset 0 0 8px var(--o)}
+.grp button{color:var(--o);border-color:var(--o)}.grp button:hover{background:var(--o);color:#000}
+.sub{margin-left:24px;font-size:20px;padding:8px 14px}.sub small{display:block;word-break:break-all}.sub span:first-child{min-width:0}
+.frm{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.frm input,.frm select{min-width:130px}
 .row{display:flex;justify-content:space-between;font-size:15px}
 .code{font:13px Arial,sans-serif;font-weight:bold;margin-bottom:14px;line-height:1.5}
 </style></head><body>
@@ -52,6 +72,7 @@ input[type=checkbox]{accent-color:var(--t);width:24px;height:24px}
 <div class="grid">
 <main>
  <section id="search">
+  <div id="warn" hidden><span>警告 WARNING</span><span>DELIBERATION IN PROGRESS</span></div>
   <div id="tabs"><button data-m="username">USERNAME</button><button data-m="email">EMAIL</button><button data-m="phone">PHONE</button><button data-m="name">NAME</button></div>
   <form id="f"><input type="text" id="q" autocomplete="off"><input type="text" id="fn" placeholder="NAME" autocomplete="off" hidden><input type="text" id="ln" placeholder="SURNAME" autocomplete="off" hidden><button>RUN</button></form>
   <div class="barw"><div id="bar"></div></div>
@@ -65,7 +86,14 @@ input[type=checkbox]{accent-color:var(--t);width:24px;height:24px}
   <div id="exp" hidden><button id="ej">EXPORT JSON</button> <button id="ec">EXPORT CSV</button></div>
  </section>
  <section id="history" hidden><button id="clr" style="margin-bottom:12px">CLEAR</button><div id="hl"></div></section>
- <section id="settings" hidden><div class="panel"><small>Select sites to search</small></div><div id="sites"></div></section>
+ <section id="settings" hidden>
+  <div class="panel"><small>Site manager · use {u} where the username goes</small>
+   <div class="frm"><input type="text" id="sn" placeholder="SITE NAME"><select id="sg"></select><input type="text" id="su" placeholder="https://site.com/{u}" style="flex:3"><button id="sa">ADD</button><button id="sc" hidden>CANCEL</button></div>
+   <div class="frm"><input type="text" id="gn" placeholder="NEW GROUP"><button id="ga">ADD GROUP</button><button id="ie">EXPORT SITES</button><button id="ii">IMPORT SITES</button><input type="file" id="if" accept=".json" hidden></div>
+   <small id="sm"></small>
+  </div>
+  <div id="sites"></div>
+ </section>
 </main>
 <aside>
  <div class="panel"><small>System status</small>
@@ -81,8 +109,13 @@ const get=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return
 const set=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const S={found:['承認',''],none:['否定','none'],fail:['ERR','fail']};
-const detect=q=>q.includes('@')?'email':/^\+?\d{7,15}$/.test(q)?'phone':'username';
-let SITES=[],res=[],lat=[],mode='username';
+let res=[],lat=[],mode='username',ed=0;
+let D=get('data',null)||{groups:[{name:'CODE'},{name:'BLOG'}],sites:[
+ {id:1,name:'GITHUB',group:'CODE',url:'https://github.com/{u}',on:1},
+ {id:2,name:'GITLAB',group:'CODE',url:'https://gitlab.com/{u}',on:1},
+ {id:3,name:'CODEBERG',group:'CODE',url:'https://codeberg.org/{u}',on:1},
+ {id:4,name:'DEV.TO',group:'BLOG',url:'https://dev.to/{u}',on:1}]};
+const save=()=>{set('data',D);drawSettings();stats()};
 
 // boot
 const L=['MAGI SYSTEM BOOT...','CASPER·3 ... ONLINE','BALTHASAR·2 ... ONLINE','MELCHIOR·1 ... ONLINE','ACCESS: SUPERUSER'];
@@ -97,29 +130,68 @@ const route=()=>{const h=location.hash.slice(1);const p=['search','history','set
  if(p==='history')drawHist()};
 addEventListener('hashchange',route);
 
-// sites
-const enabled=()=>{const off=get('off',[]);return SITES.filter(s=>!off.includes(s.name)).map(s=>s.name)};
-function drawSettings(){const off=get('off',[]),gs=[...new Set(SITES.map(s=>s.group))];
- $('sites').innerHTML=gs.map(g=>`<div class="card"><b>${esc(g)}</b><input type="checkbox" data-g="${esc(g)}"></div>`+SITES.filter(s=>s.group===g).map(s=>`<label class="card sub"><span>${esc(s.name)}</span><input type="checkbox" data-s="${esc(s.name)}" ${off.includes(s.name)?'':'checked'}></label>`).join('')).join('');
- syncG()}
-const grp=x=>SITES.find(s=>s.name===x.dataset.s).group;
-function syncG(){document.querySelectorAll('[data-g]').forEach(g=>{const c=[...document.querySelectorAll('[data-s]')].filter(x=>grp(x)===g.dataset.g),n=c.filter(x=>x.checked).length;g.checked=n===c.length;g.indeterminate=n>0&&n<c.length})}
-$('sites').onchange=e=>{const t=e.target;
- if(t.dataset.g)document.querySelectorAll('[data-s]').forEach(x=>{if(grp(x)===t.dataset.g)x.checked=t.checked});
- set('off',[...document.querySelectorAll('[data-s]')].filter(x=>!x.checked).map(x=>x.dataset.s));syncG();stats()};
-fetch('/api/check?list=1').then(r=>r.json()).then(l=>{SITES=l;drawSettings();stats()}).catch(()=>{});
+// effects
+function setSt(t){const e=$('st');e.textContent=t;e.classList.remove('gl');void e.offsetWidth;e.classList.add('gl')}
+function at(x,y){const d=document.createElement('div');d.className='at';d.style.left=x+'px';d.style.top=y+'px';
+ d.innerHTML='<svg viewBox="-50 -50 100 100"><polygon points="50,0 25,43 -25,43 -50,0 -25,-43 25,-43"/></svg>';
+ document.body.appendChild(d);setTimeout(()=>d.remove(),900)}
+
+// site manager
+const mv=(id,d)=>{const i=D.sites.findIndex(s=>s.id===id);let j=i+d;while(D.sites[j]&&D.sites[j].group!==D.sites[i].group)j+=d;if(D.sites[j])[D.sites[i],D.sites[j]]=[D.sites[j],D.sites[i]]};
+const urlOk=u=>u.startsWith('https://')&&u.split('{u}').length===2;
+function drawSettings(){
+ $('sg').innerHTML=D.groups.map(g=>`<option>${esc(g.name)}</option>`).join('');
+ $('sites').innerHTML=D.groups.map(g=>{
+  const m=D.sites.filter(s=>s.group===g.name),n=m.filter(s=>s.on).length;
+  return `<div class="card grp"><span><button data-a="col" data-g="${esc(g.name)}">${g.c?'▶':'▼'}</button> <b>${esc(g.name)}</b> <small>${n}/${m.length}</small></span><span><input type="checkbox" data-a="gon" data-g="${esc(g.name)}" ${m.length&&n===m.length?'checked':''}> <button data-a="ren" data-g="${esc(g.name)}">RENAME</button><button data-a="gdel" data-g="${esc(g.name)}">✕</button></span></div>`
+  +(g.c?'':m.map(s=>`<div class="card sub"><span><input type="checkbox" data-a="on" data-i="${s.id}" ${s.on?'checked':''}> ${esc(s.name)} <small>${esc(s.url)}</small><small id="t${s.id}"></small></span><span><button data-a="up" data-i="${s.id}">▲</button><button data-a="dn" data-i="${s.id}">▼</button><button data-a="test" data-i="${s.id}">TEST</button><button data-a="edit" data-i="${s.id}">EDIT</button><button data-a="del" data-i="${s.id}">✕</button></span></div>`).join(''))}).join('');
+ document.querySelectorAll('[data-a=gon]').forEach(c=>{const m=D.sites.filter(s=>s.group===c.dataset.g),n=m.filter(s=>s.on).length;c.indeterminate=n>0&&n<m.length})}
+const api=async(q,s)=>{try{const r=await(await fetch(`/api/check?q=${encodeURIComponent(q)}&name=${encodeURIComponent(s.name)}&tpl=${encodeURIComponent(s.url)}`)).json();if(r.error)throw 0;return r}catch{return{name:s.name,url:'',status:'fail',ms:0}}};
+async function test(s){const u=prompt('USERNAME KNOWN TO EXIST ON '+s.name);if(!u)return;const el=$('t'+s.id);el.textContent='…';
+ const r=await api(u.trim(),s);el.textContent=r.status==='found'?'OK · 承認':r.status==='none'?'404 · NOT FOUND (CHECK URL)':'ERR · BLOCKED OR UNREACHABLE'}
+function edit(s){ed=s.id;$('sn').value=s.name;$('sg').value=s.group;$('su').value=s.url;$('sa').textContent='SAVE';$('sc').hidden=false;scrollTo(0,0)}
+const clr=()=>{ed=0;$('sn').value=$('su').value='';$('sa').textContent='ADD';$('sc').hidden=true};
+$('sc').onclick=clr;
+$('sa').onclick=()=>{const name=$('sn').value.trim().toUpperCase().slice(0,30),group=$('sg').value,url=$('su').value.trim();
+ const bad=!name?'NAME REQUIRED':!group?'CREATE A GROUP FIRST':!urlOk(url)?'URL MUST START WITH https:// AND CONTAIN {u} ONCE':'';
+ $('sm').textContent=bad;if(bad)return;
+ if(ed)Object.assign(D.sites.find(x=>x.id===ed),{name,group,url});
+ else D.sites.push({id:D.sites.reduce((m,x)=>Math.max(m,x.id),0)+1,name,group,url,on:1});
+ clr();save()};
+$('ga').onclick=()=>{const n=$('gn').value.trim().toUpperCase().slice(0,30);if(!n||D.groups.some(x=>x.name===n))return;D.groups.push({name:n});$('gn').value='';save()};
+$('sites').onclick=e=>{const t=e.target,a=t.dataset.a;if(!a)return;
+ const id=+t.dataset.i,g=t.dataset.g,s=D.sites.find(x=>x.id===id);
+ if(a==='on')s.on=t.checked?1:0;
+ else if(a==='gon')D.sites.forEach(x=>{if(x.group===g)x.on=t.checked?1:0});
+ else if(a==='col'){const o=D.groups.find(x=>x.name===g);o.c=!o.c}
+ else if(a==='ren'){const n=(prompt('RENAME GROUP',g)||'').trim().toUpperCase().slice(0,30);if(!n||n===g||D.groups.some(x=>x.name===n))return;D.groups.find(x=>x.name===g).name=n;D.sites.forEach(x=>{if(x.group===g)x.group=n})}
+ else if(a==='gdel'){if(!confirm('DELETE GROUP '+g+' AND ITS SITES?'))return;D.groups=D.groups.filter(x=>x.name!==g);D.sites=D.sites.filter(x=>x.group!==g)}
+ else if(a==='up'||a==='dn')mv(id,a==='up'?-1:1);
+ else if(a==='del')D.sites=D.sites.filter(x=>x.id!==id);
+ else if(a==='edit')return edit(s);
+ else if(a==='test')return test(s);
+ save()};
+$('ie').onclick=()=>dl('magi-sites.json',JSON.stringify(D,null,1),'application/json');
+$('ii').onclick=()=>$('if').click();
+$('if').onchange=async e=>{try{const d=JSON.parse(await e.target.files[0].text());
+ if(!Array.isArray(d.groups)||!Array.isArray(d.sites))throw 0;
+ const gs=d.groups.map(g=>String(g.name).slice(0,30));
+ const ss=d.sites.filter(s=>s&&typeof s.name==='string'&&typeof s.url==='string'&&urlOk(s.url)&&gs.includes(s.group)).map((s,i)=>({id:i+1,name:s.name.toUpperCase().slice(0,30),group:s.group,url:s.url,on:s.on?1:0}));
+ D={groups:gs.map(name=>({name})),sites:ss};save();$('sm').textContent='IMPORTED '+ss.length+' SITES'}catch{$('sm').textContent='INVALID FILE'}e.target.value=''};
 
 // ui helpers
 function stats(){const h=get('hist',[]);
- $('s1').textContent=enabled().length+'/'+SITES.length;$('s2').textContent=h.length;
+ $('s1').textContent=D.sites.filter(s=>s.on).length+'/'+D.sites.length;$('s2').textContent=h.length;
  $('s3').textContent=h[0]?h[0].f:'-';
  $('s4').textContent=lat.length?Math.round(lat.reduce((a,c)=>a+c)/lat.length)+'ms':'-'}
 function nodes(total=0){[0,1,2].forEach(k=>{
  const e=Math.max(0,Math.ceil((total-k)/3)),sub=res.filter(r=>r.i%3===k);
  const v=!total?'…':!e?'—':sub.some(r=>r.status==='found')?'承認':sub.length>=e?'否定':'…';
- const el=$('n'+k);el.textContent=v;el.className='stamp'+(v==='否定'?' none':'')})}
+ const el=$('n'+k);el.parentElement.classList.toggle('wait',v==='…'&&total>0);
+ if(el.textContent===v&&el.className)return;
+ el.textContent=v;el.className='stamp';void el.offsetWidth;el.className='stamp'+(v==='否定'?' none':'')+(total?' slam':'')})}
 function card(r){const[s,c]=S[r.status];
- $('out').insertAdjacentHTML('beforeend',`<div class="card"><a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.name)} <small>${r.ms}ms</small></a><span class="stamp ${c}">${s}</span></div>`)}
+ $('out').insertAdjacentHTML('beforeend',`<div class="card"><a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.name)} <small>${r.ms}ms</small></a><span class="stamp slam ${c}">${s}</span></div>`)}
 function drawHist(){const h=get('hist',[]);
  $('hl').innerHTML=h.length?h.map((x,i)=>`<div class="card" data-i="${i}" style="cursor:pointer"><span>${esc(x.q)} <small>${x.t} · ${x.type}</small></span><span class="stamp ${x.f?'':'none'}">${x.f}</span></div>`).join(''):'<p>NO RECORDS</p>'}
 $('hl').onclick=e=>{const c=e.target.closest('[data-i]');if(c){const x=get('hist',[])[c.dataset.i];run(x.q,x.type)}};
@@ -130,7 +202,7 @@ function setMode(m){mode=m;document.querySelectorAll('#tabs button').forEach(b=>
  const n=m==='name',p=m==='phone';
  $('q').hidden=n||p;$('fn').hidden=$('ln').hidden=!n;$('f').hidden=p;
  $('q').placeholder=m==='email'?'EMAIL':'USERNAME';
- $('st').textContent=p?'PHONE: DISABLED (PAID API REQUIRED)':'MOTION: STANDBY'}
+ setSt(p?'PHONE: DISABLED (PAID API REQUIRED)':'MOTION: STANDBY')}
 const clean=s=>s.toLowerCase().replace(/[^a-z0-9]/g,'');
 const variants=(f,l)=>{f=clean(f);l=clean(l);return f&&l?[...new Set([f+l,f+'.'+l,f+'_'+l,f[0]+l,l+f])]:[]};
 async function run(q,m=mode){
@@ -140,29 +212,30 @@ async function run(q,m=mode){
  location.hash='search';setMode(m);
  if(m==='name'){$('fn').value=parts[0];$('ln').value=parts[parts.length-1]}else $('q').value=q;
  res=[];lat=[];$('out').innerHTML='';$('exp').hidden=true;$('bar').style.width='0';nodes();
- if((m==='email')!==q.includes('@')){$('st').textContent=m==='email'?'INVALID EMAIL':'USERNAME CANNOT CONTAIN @';return}
+ if((m==='email')!==q.includes('@')){setSt(m==='email'?'INVALID EMAIL':'USERNAME CANNOT CONTAIN @');return}
  const qs=m==='name'?variants(parts[0],parts[parts.length-1]):[q];
- const sites=m==='email'?['GRAVATAR']:enabled();
+ const sites=m==='email'?[{name:'GRAVATAR',url:''}]:D.sites.filter(s=>s.on);
  const tasks=qs.flatMap(v=>sites.map(s=>({v,s})));
- if(!tasks.length){$('st').textContent=qs.length?'NO SITES ENABLED':'LATIN LETTERS ONLY';return}
- $('st').textContent='MOTION: DELIBERATING';let n=0;
+ if(!tasks.length){setSt(qs.length?'NO SITES ENABLED':'LATIN LETTERS ONLY');return}
+ setSt('MOTION: DELIBERATING');$('warn').hidden=false;let n=0;
  await Promise.all(tasks.map(async({v,s},i)=>{
-  let r;try{r=await(await fetch(`/api/check?q=${encodeURIComponent(v)}&site=${encodeURIComponent(s)}`)).json();if(r.error)throw 0}
-  catch{r={name:s,url:'',status:'fail',ms:0}}
+  const r=await api(v,s);
   r.q=v;r.i=i;if(m==='name')r.name+=' · '+v;
   res.push(r);lat.push(r.ms);$('bar').style.width=++n/tasks.length*100+'%';card(r);nodes(tasks.length)}));
+ $('warn').hidden=true;
  const f=res.filter(r=>r.status==='found').length;
- $('st').textContent='MOTION: '+(f?`FOUND (${f})`:'NOT FOUND')+(m==='name'?' · UNVERIFIED':'');$('exp').hidden=false;
+ setSt('MOTION: '+(f?`FOUND (${f})`:'NOT FOUND')+(m==='name'?' · UNVERIFIED':''));$('exp').hidden=false;
  const h=get('hist',[]).filter(x=>x.q!==q);
  h.unshift({q,type:m,f,t:new Date().toISOString().slice(0,16).replace('T',' ')});set('hist',h.slice(0,50));stats();
 }
 $('tabs').onclick=e=>{if(e.target.dataset.m)setMode(e.target.dataset.m)};
-$('f').onsubmit=e=>{e.preventDefault();run(mode==='name'?$('fn').value+' '+$('ln').value:$('q').value)};
+$('f').onsubmit=e=>{e.preventDefault();const r=$('f').querySelector('button').getBoundingClientRect();at(r.left+r.width/2,r.top+r.height/2);
+ run(mode==='name'?$('fn').value+' '+$('ln').value:$('q').value)};
 
 // export
 function dl(name,txt,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type}));a.download=name;a.click()}
 $('ej').onclick=()=>dl('magi.json',JSON.stringify({query:$('q').value,results:res},null,1),'application/json');
 $('ec').onclick=()=>dl('magi.csv','query,site,url,status,ms\n'+res.map(r=>[r.q,r.name,r.url,r.status,r.ms].join(',')).join('\n'),'text/csv');
 
-route();stats();nodes();setMode('username');
+route();drawSettings();stats();nodes();setMode('username');
 </script></body></html>
